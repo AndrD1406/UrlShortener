@@ -1,0 +1,57 @@
+<div class="w-100 margin-auto">
+  <div class="form-container">
+    <h2>User URLs</h2>
+
+    <!-- Table to display existing URLs -->
+    <table class="table w-100" [formGroup]="putUrlForm">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Short URL</th>
+        <th>Long URL</th>
+        <th>Created On</th>
+        <th>Created By</th>
+      </tr>
+      </thead>
+
+      <tbody formArrayName="urls">
+      <tr *ngFor="let urlControl of putUrlFormUlrs.controls; let i = index" [formGroupName]="i" class="table-row-left">
+        <td>{{ i + 1 }}</td>
+        <td><a [href]="urlControl.value.shortUrl" target="_blank">{{ urlControl.value.shortUrl }}</a></td>
+        <td><a [href]="urlControl.value.longUrl" target="_blank">{{ urlControl.value.longUrl }}</a></td>
+        <td>{{ urlControl.value.createdDate | date }}</td>
+        <td>{{ urlControl.value.createdBy || 'N/A' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button type="button" class="button button-blue-back mt" (click)="refreshClicked()">Refresh</button>
+
+  <h2>Add New URL</h2>
+
+  <!-- Form to add a new URL -->
+  <form [formGroup]="urlForm" (ngSubmit)="onAddUrl()">
+
+    <!-- Long URL -->
+    <div class="form-field flex">
+      <div class="w-25">
+        <label for="longUrl" class="form-label pt">Long URL</label>
+      </div>
+      <div class="flex-1">
+        <input type="text" id="longUrl" class="form-input" formControlName="longUrl" />
+        <span class="text-red" *ngIf="(urlForm.controls['longUrl'].touched || isFormSubmitted) && urlForm.controls['longUrl'].errors?.['required']">URL can't be blank</span>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="form-field flex">
+      <div class="w-25">
+        <button type="submit" class="button button-green-back">Add URL</button>
+      </div>
+      <div class="flex-1">
+        <span class="text-red" *ngIf="!isUrlValid">URL could not be added</span>
+      </div>
+    </div>
+  </form>
+</div>
