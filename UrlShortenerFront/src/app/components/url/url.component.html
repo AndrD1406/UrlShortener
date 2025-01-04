@@ -15,7 +15,7 @@
       </thead>
 
       <tbody formArrayName="urls">
-      <tr *ngFor="let urlControl of putUrlFormUlrs.controls; let i = index" [formGroupName]="i" class="table-row-left">
+      <tr *ngFor="let urlControl of putUrlFormUlrs.controls; let i = index" [formGroupName]="i">
         <td>{{ i + 1 }}</td>
         <td><a [href]="urlControl.value.shortUrl" target="_blank">{{ urlControl.value.shortUrl }}</a></td>
         <td><a [href]="urlControl.value.longUrl" target="_blank">{{ urlControl.value.longUrl }}</a></td>
